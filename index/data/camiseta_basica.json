@@ -1,0 +1,25 @@
+{
+  "id": "CAM001",
+  "nome": "Camiseta Básica de Algodão",
+  "categoria": "Camisetas",
+  "descricao": "Camiseta básica confeccionada em 100% algodão de alta qualidade. Modelo unissex com acabamento reforçado nas costuras e gola redonda. Perfeita para o dia a dia, oferece conforto e durabilidade. Disponível em diversas cores e tamanhos.",
+  "detalhes_tecnicos": "Tecido: 100% algodão penteado. Gramatura: 180g/m². Tecnologia anti-odor e proteção UV 30+. Lavagem à máquina em água fria.",
+  "cores_disponiveis": ["Branco", "Preto", "Cinza", "Azul Marinho", "Vermelho"],
+  "tamanhos_disponiveis": ["PP", "P", "M", "G", "GG", "XG"],
+  "preco": 59.90,
+  "preco_promocional": 49.90,
+  "em_promocao": true,
+  "estoque": {
+    "Branco": {"PP": 15, "P": 20, "M": 30, "G": 25, "GG": 15, "XG": 10},
+    "Preto": {"PP": 10, "P": 25, "M": 35, "G": 30, "GG": 20, "XG": 15},
+    "Cinza": {"PP": 8, "P": 15, "M": 25, "G": 20, "GG": 10, "XG": 5},
+    "Azul Marinho": {"PP": 12, "P": 18, "M": 28, "G": 22, "GG": 12, "XG": 8},
+    "Vermelho": {"PP": 5, "P": 10, "M": 15, "G": 12, "GG": 8, "XG": 3}
+  },
+  "avaliacao_media": 4.7,
+  "numero_avaliacoes": 253,
+  "instrucoes_cuidado": "Lavar à máquina em água fria. Não usar alvejante. Secar na sombra. Passar em temperatura baixa.",
+  "sustentabilidade": "Produzida com algodão de cultivo sustentável e tingimento com baixo impacto ambiental.",
+  "tags": ["básico", "algodão", "casual", "unissex", "essencial", "verão"],
+  "data_atualizacao": "2025-02-15"
+}

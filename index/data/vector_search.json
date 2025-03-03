@@ -1,0 +1,8 @@
+{
+  "title": "Busca Vetorial em Aplicações de IA",
+  "description": "Como a busca vetorial é usada em aplicações modernas de IA",
+  "content": "A busca vetorial está no centro de muitas aplicações de IA, incluindo: busca semântica, sistemas de recomendação, busca por similaridade de imagens, detecção de anomalias, agrupamento e classificação, e Geração Aumentada por Recuperação (RAG). Quando os dados são convertidos em embeddings vetoriais, a busca por similaridade permite encontrar itens semanticamente relacionados, mesmo quando não compartilham as mesmas palavras-chave. Isso é fundamental para sistemas de IA modernos que precisam entender o significado e o contexto, não apenas correspondências exatas de texto.",
+  "author": "Equipe de IA",
+  "date": "2025-03-01",
+  "tags": ["Vector Search", "AI Applications", "Embeddings", "Semantic Search"]
+}

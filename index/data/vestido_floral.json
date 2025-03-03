@@ -1,0 +1,32 @@
+{
+  "id": "VF003",
+  "nome": "Vestido Floral Midi Primavera",
+  "categoria": "Vestidos",
+  "descricao": "Vestido midi com estampa floral delicada em tecido fluido e leve. Perfeito para ocasiões casuais e semi-formais na primavera e verão. O corte valoriza a silhueta feminina com caimento elegante e confortável. Fechamento com zíper invisível nas costas e detalhes em acabamento artesanal.",
+  "detalhes_tecnicos": "Composição: 100% viscose. Forro em 100% poliéster. Tecido com tratamento anti-UV que protege a pele dos raios solares. Estampa exclusiva desenvolvida pelo nosso estúdio de design.",
+  "cores_disponiveis": ["Floral Azul", "Floral Rosa", "Floral Verde"],
+  "tamanhos_disponiveis": ["PP", "P", "M", "G", "GG"],
+  "preco": 259.90,
+  "preco_promocional": 199.90,
+  "em_promocao": true,
+  "estoque": {
+    "Floral Azul": {"PP": 8, "P": 12, "M": 15, "G": 10, "GG": 5},
+    "Floral Rosa": {"PP": 10, "P": 15, "M": 18, "G": 12, "GG": 6},
+    "Floral Verde": {"PP": 6, "P": 10, "M": 12, "G": 8, "GG": 4}
+  },
+  "avaliacao_media": 4.9,
+  "numero_avaliacoes": 156,
+  "instrucoes_cuidado": "Lavar à mão ou em máquina no ciclo delicado com água fria. Não usar alvejante. Secar na horizontal à sombra. Passar em temperatura baixa pelo avesso. Não lavar a seco.",
+  "sustentabilidade": "Produzido com viscose certificada de fontes renováveis. Tingimento com baixo impacto ambiental. Embalagem 100% reciclável.",
+  "caracteristicas_adicionais": {
+    "comprimento": "Midi (110cm para tamanho M)",
+    "decote": "V moderado",
+    "mangas": "3/4 com acabamento em babado",
+    "cintura": "Marcada com elástico confortável",
+    "saia": "Ampla com leve godê"
+  },
+  "combinacoes_sugeridas": ["Sandália de salto médio", "Bolsa de palha", "Chapéu de aba larga", "Cardigan leve"],
+  "ocasioes": ["Almoço", "Passeio", "Eventos diurnos", "Trabalho em ambiente casual"],
+  "tags": ["vestido", "floral", "midi", "primavera", "verão", "feminino", "elegante", "casual chic"],
+  "data_atualizacao": "2025-03-10"
+}

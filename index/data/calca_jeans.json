@@ -1,0 +1,33 @@
+{
+  "id": "CJ002",
+  "nome": "Calça Jeans Slim Fit Premium",
+  "categoria": "Calças",
+  "descricao": "Calça jeans slim fit confeccionada em denim premium com elastano. Oferece conforto e mobilidade sem perder a elegância. Modelo versátil que combina com diversas ocasiões, desde o casual ao smart casual. Acabamento premium com costuras reforçadas e botões metálicos de alta qualidade.",
+  "detalhes_tecnicos": "Composição: 98% algodão e 2% elastano. Denim de gramatura média (11oz). Tecnologia de lavagem eco-friendly que economiza 80% de água no processo. Tingimento com corantes naturais.",
+  "cores_disponiveis": ["Azul Escuro", "Azul Médio", "Preto", "Cinza"],
+  "tamanhos_disponiveis": ["36", "38", "40", "42", "44", "46", "48", "50"],
+  "preco": 189.90,
+  "preco_promocional": 159.90,
+  "em_promocao": false,
+  "estoque": {
+    "Azul Escuro": {"36": 10, "38": 15, "40": 25, "42": 30, "44": 20, "46": 15, "48": 10, "50": 5},
+    "Azul Médio": {"36": 8, "38": 12, "40": 20, "42": 25, "44": 18, "46": 12, "48": 8, "50": 4},
+    "Preto": {"36": 12, "38": 18, "40": 28, "42": 32, "44": 22, "46": 16, "48": 12, "50": 6},
+    "Cinza": {"36": 6, "38": 10, "40": 18, "42": 22, "44": 16, "46": 10, "48": 6, "50": 3}
+  },
+  "avaliacao_media": 4.8,
+  "numero_avaliacoes": 187,
+  "instrucoes_cuidado": "Lavar à máquina em água fria. Não usar alvejante. Secar na sombra. Passar em temperatura média. Lavar do avesso para preservar a cor.",
+  "sustentabilidade": "Produzida com processos de lavagem que economizam água e energia. Botões e rebites reciclados. Algodão de origem certificada.",
+  "caracteristicas_adicionais": {
+    "bolsos": 5,
+    "fechamento": "Botão e zíper",
+    "cintura": "Média",
+    "comprimento": "Regular (84cm para tamanho 42)",
+    "barra": "Tradicional com opção de ajuste"
+  },
+  "combinacoes_sugeridas": ["Camiseta básica", "Camisa social", "Blazer casual"],
+  "ocasioes": ["Casual", "Trabalho", "Happy hour", "Encontros"],
+  "tags": ["jeans", "slim fit", "premium", "confortável", "versátil", "durável"],
+  "data_atualizacao": "2025-02-20"
+}

@@ -1,0 +1,7 @@
+langchain>=0.1.0
+langchain-core>=0.1.13
+langchain-google-genai>=0.0.5
+langchain-community>=0.0.17
+faiss-cpu>=1.7.4
+langgraph>=0.0.20
+pybind11>=2.11.1

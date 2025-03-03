@@ -1,0 +1,33 @@
+{
+  "id": "BF004",
+  "nome": "Blazer Feminino Alfaiataria Premium",
+  "categoria": "Blazers",
+  "descricao": "Blazer feminino de alfaiataria premium com corte moderno e elegante. Perfeito para compor looks de trabalho sofisticados ou para elevar produções casuais. Confeccionado com tecidos de alta qualidade e acabamento impecável, este blazer é uma peça versátil e atemporal para o guarda-roupa feminino.",
+  "detalhes_tecnicos": "Composição: 78% poliéster, 20% viscose e 2% elastano. Forro interno em cetim acetinado. Estrutura com entretela de alta qualidade para manter o caimento perfeito. Botões personalizados com acabamento metalizado.",
+  "cores_disponiveis": ["Preto", "Azul Marinho", "Bege", "Vermelho"],
+  "tamanhos_disponiveis": ["PP", "P", "M", "G", "GG"],
+  "preco": 349.90,
+  "preco_promocional": 279.90,
+  "em_promocao": false,
+  "estoque": {
+    "Preto": {"PP": 10, "P": 15, "M": 20, "G": 15, "GG": 8},
+    "Azul Marinho": {"PP": 8, "P": 12, "M": 18, "G": 12, "GG": 6},
+    "Bege": {"PP": 6, "P": 10, "M": 15, "G": 10, "GG": 5},
+    "Vermelho": {"PP": 4, "P": 8, "M": 12, "G": 8, "GG": 4}
+  },
+  "avaliacao_media": 4.7,
+  "numero_avaliacoes": 128,
+  "instrucoes_cuidado": "Lavagem a seco recomendada. Se necessário, lavar à mão com água fria. Não torcer. Secar na horizontal à sombra. Passar em temperatura média com pano úmido. Armazenar em cabide para manter a estrutura.",
+  "sustentabilidade": "Produzido com processos que economizam água e energia. Botões de material reciclado. Embalagem biodegradável.",
+  "caracteristicas_adicionais": {
+    "comprimento": "Tradicional na altura do quadril",
+    "lapela": "Média com corte clássico",
+    "mangas": "Longas com botões funcionais",
+    "bolsos": "Dois bolsos frontais falsos e um bolso interno",
+    "fechamento": "Um botão frontal"
+  },
+  "combinacoes_sugeridas": ["Calça social", "Calça jeans", "Vestido tubinho", "Saia lápis"],
+  "ocasioes": ["Trabalho", "Reuniões", "Eventos formais", "Looks casuais elegantes"],
+  "tags": ["blazer", "alfaiataria", "feminino", "trabalho", "elegante", "versátil", "premium"],
+  "data_atualizacao": "2025-03-15"
+}
