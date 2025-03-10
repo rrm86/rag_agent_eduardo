@@ -1,14 +1,12 @@
 import os
 import numpy as np
 from langchain_core.tools import tool
-from langchain_community.vectorstores import FAISS
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain.prompts import PromptTemplate
+from langchain_core.documents import Document
 from llm import llm
-from config import API_KEY
-
-# Caminho para o índice FAISS
-FAISS_INDEX_PATH = os.path.join(os.path.dirname(__file__), "index", "faiss_index")
+from config import API_KEY, SUPABASE_URL, SUPABASE_KEY, SUPABASE_TABLE_NAME, SUPABASE_COLLECTION_NAME
+from supabase import create_client, Client
 
 # Define the RAG prompt template para produtos
 RAG_PROMPT_TEMPLATE = """
@@ -31,26 +29,61 @@ Regras Importantes:
 Sua resposta:
 """
 
-# Função de ajuda para converter distância L2 para similaridade cosseno
-def l2_to_cosine(l2_distance):
-    """Converte a distância L2 para similaridade cosseno."""
-    return 1 - (l2_distance ** 2 / 2)
+def get_supabase_client():
+    """Obtém um cliente Supabase."""
+    return create_client(SUPABASE_URL, SUPABASE_KEY)
 
-def get_vectorstore():
-    """Obtenha ou crie uma instância de vectorstore."""
-    embeddings = GoogleGenerativeAIEmbeddings(
+def get_embeddings_model():
+    """Obtém o modelo de embeddings do Google."""
+    return GoogleGenerativeAIEmbeddings(
         model="models/text-embedding-004",
         google_api_key=API_KEY
     )
+
+def similarity_search_with_score(query, k=5):
+    """
+    Realiza uma busca de similaridade no Supabase usando pgvector.
     
-    if os.path.exists(FAISS_INDEX_PATH) and len(os.listdir(FAISS_INDEX_PATH)) > 0:
-        return FAISS.load_local(
-            FAISS_INDEX_PATH, 
-            embeddings, 
-            allow_dangerous_deserialization=True
+    Args:
+        query: A string de consulta
+        k: Número de resultados a retornar
+    
+    Returns:
+        Uma lista de tuplas (Document, score)
+    """
+    # Obter o embedding para a consulta
+    embeddings = get_embeddings_model()
+    query_embedding = embeddings.embed_query(query)
+    
+    # Realizar a busca no Supabase
+    supabase = get_supabase_client()
+    
+    # Usar o operador de similaridade cosine do pgvector diretamente via RPC
+    rpc_payload = {
+        "query_embedding": query_embedding,
+        "filter_collection_name": SUPABASE_COLLECTION_NAME.split(",")[0],
+        "match_count": k
+    }
+    
+    results = supabase.rpc(
+        "match_documents", 
+        rpc_payload
+    ).execute()
+    
+    # Converter resultados em documentos com pontuações
+    docs_with_scores = []
+    
+    for item in results.data:
+        # Criar documento a partir do conteúdo e metadados retornados
+        doc = Document(
+            page_content=item["content"],
+            metadata=item["metadata"]
         )
-    else:
-        raise ValueError("Vectorstore não encontrado. Execute o script de indexação primeiro.")
+        # A similaridade é retornada como "similarity"
+        score = item["similarity"]
+        docs_with_scores.append((doc, score))
+    
+    return docs_with_scores
 
 @tool
 def search_documents(query: str) -> str:
@@ -63,13 +96,12 @@ def search_documents(query: str) -> str:
     Returns:
         A lista de documentos e suas respectivas similaridades.
     """
-    vectorstore = get_vectorstore()
-    docs_with_scores = vectorstore.similarity_search_with_score(query=query, k=5)
+    docs_with_scores = similarity_search_with_score(query=query, k=5)
     
     results = []
-    for i, (doc, l2_distance) in enumerate(docs_with_scores):
-        cosine_sim = l2_to_cosine(l2_distance)
-        similarity_percent = f"{cosine_sim * 100:.2f}%"
+    for i, (doc, score) in enumerate(docs_with_scores):
+        # No Supabase/pgvector, os scores já são similaridades (não distâncias L2)
+        similarity_percent = f"{score * 100:.2f}%"
         source = doc.metadata.get("source", "Desconhecido")
         results.append(f"Documento {i+1} (Similaridade: {similarity_percent}, Fonte: {source}):\n{doc.page_content}\n")
     
@@ -86,15 +118,14 @@ def rag_query(query: str) -> str:
     Returns:
         Uma resposta detalhada baseada nos documentos recuperados
     """
-    vectorstore = get_vectorstore()
-    docs_with_scores = vectorstore.similarity_search_with_score(query=query, k=5)
+    docs_with_scores = similarity_search_with_score(query=query, k=5)
     
     context_docs = []
     results = []
     
-    for i, (doc, l2_distance) in enumerate(docs_with_scores):
-        cosine_sim = l2_to_cosine(l2_distance)
-        similarity_percent = f"{cosine_sim * 100:.2f}%"
+    for i, (doc, score) in enumerate(docs_with_scores):
+        # No pgvector, os scores já são similaridades (não distâncias L2)
+        similarity_percent = f"{score * 100:.2f}%"
         source = doc.metadata.get("source", "Desconhecido")
         
         context_docs.append(doc.page_content)

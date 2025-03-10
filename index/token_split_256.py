@@ -1,15 +1,15 @@
-from langchain_community.vectorstores import FAISS
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_text_splitters import TokenTextSplitter
 from langchain_core.documents import Document
 import os
 import json
 import sys
 from typing import Dict, List, Any
+from supabase import create_client
 
 # Adiciona o diretório pai ao sys.path para permitir importação absoluta
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from config import API_KEY
+from config import API_KEY, SUPABASE_URL, SUPABASE_KEY, SUPABASE_TABLE_NAME, SUPABASE_COLLECTION_NAME
 
 # Caminho para a pasta de dados
 data_folder = "data"
@@ -120,24 +120,57 @@ for filename in os.listdir(data_folder):
 # de maneira mais eficaz. Utilizamos o RecursiveCharacterTextSplitter com um tamanho de chunk de 500 caracteres
 # e sobreposição de 100 caracteres para manter o contexto entre os pedaços.
 # Documentação:https://python.langchain.com/v0.1/docs/modules/data_connection/document_transformers/
-text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-    chunk_size=500,  # Tamanho maior de chunk para descrições de produtos
-    chunk_overlap=100
-)
-doc_splits = text_splitter.split_documents(documents)
+
+token_splitter = TokenTextSplitter(chunk_size=256, chunk_overlap=20)
+doc_splits = token_splitter.split_documents(documents)
 
 # Cria embeddings utilizando o modelo do Google
 embeddings = GoogleGenerativeAIEmbeddings(
     model="models/text-embedding-004",
     google_api_key=API_KEY
 )
+SUPABASE_COLLECTION_NAME = SUPABASE_COLLECTION_NAME.split(",")[2]
+print(f"Conectando ao Supabase: {SUPABASE_URL}")
+print(f"Usando tabela: {SUPABASE_TABLE_NAME} com a collection: {SUPABASE_COLLECTION_NAME}")
 
-# Adiciona os documentos divididos ao banco de dados de vetores FAISS
-vectorstore = FAISS.from_documents(
-    documents=doc_splits,
-    embedding=embeddings,
-)
+# Cria cliente Supabase
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-
-# Salva o índice FAISS para uso futuro
-vectorstore.save_local("faiss_index")
+try:
+    # Verificar se a tabela existe usando supabase.table().select()
+    print(f"Verificando acesso à tabela {SUPABASE_TABLE_NAME}...")
+    
+    # Tentar acessar a tabela para ver se existe
+    table_check = supabase.table(SUPABASE_TABLE_NAME).select("id").limit(1).execute()
+    print(f"Tabela {SUPABASE_TABLE_NAME} encontrada.")
+    
+    # Limpar dados existentes para evitar duplicatas
+    print(f"Limpando dados existentes da coleção {SUPABASE_COLLECTION_NAME}...")
+    supabase.table(SUPABASE_TABLE_NAME).delete().eq('collection_name', SUPABASE_COLLECTION_NAME).execute()
+    
+    # Agora inserimos os documentos como embeddings
+    print("Inserindo documentos como embeddings...")
+    
+    for i, doc in enumerate(doc_splits):
+        # Obter embedding para o documento
+        doc_embedding = embeddings.embed_query(doc.page_content)
+        
+        # Inserir no Supabase
+        data = {
+            "content": doc.page_content,
+            "metadata": doc.metadata,
+            "embedding": doc_embedding,
+            "collection_name": SUPABASE_COLLECTION_NAME
+        }
+        
+        result = supabase.table(SUPABASE_TABLE_NAME).insert(data).execute()
+        
+        if (i + 1) % 10 == 0 or i + 1 == len(doc_splits):
+            print(f"Progresso: {i + 1}/{len(doc_splits)} documentos inseridos")
+    
+    print(f"Total de {len(doc_splits)} documentos inseridos com sucesso na coleção {SUPABASE_COLLECTION_NAME}!")
+    
+except Exception as e:
+    print(f"Erro ao interagir com o Supabase: {e}")
+    import traceback
+    traceback.print_exc()

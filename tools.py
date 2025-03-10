@@ -6,6 +6,7 @@ def agent_tool_debug() -> str:
     """Essa ferramenta é para testar o comportamento do agente. Chame essa ferramenta quando o cliente digitar 'debug_tool'."""
     return "Yes, I can call a tool"
 
+
 # List of available tools
 tools = [agent_tool_debug, rag_query, search_documents]
 

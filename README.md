@@ -88,3 +88,36 @@ Este projeto é ideal para praticar:
 ## Conclusão
 
 O RAG representa uma evolução significativa na aplicação de LLMs, combinando a precisão da recuperação de informações com a fluência da geração de texto. Este projeto serve como um laboratório para experimentar e compreender cada componente deste poderoso paradigma.
+
+
+
+# Encontro 3
+
+## Introduzindo RAG com Postgres(Supabase)
+
+- Faça cadastro no Supabase: https://supabase.com/
+- Crie um projeto no Supabase
+- Crie a tabela com o script SQL presente em /sql/eduardo_embeddings.sql
+- Cria a função de match com o script SQL presente em /sql/match_documents.sql
+
+Atualize os requisitos do sistema:
+
+```bash
+pip install -r requirements.txt
+```
+Obtenha os dados de acesso e preencha em .env
+
+Execute uma as ingestões presentes na pasta index
+
+
+## Tipos de emddedings
+Vamos investigar os diferentes tipos de embeddings e entender como avaliá-los
+
+Para rodar a avaliação, execute:
+
+```bash 
+python test_compare_embeddings.py
+```
+## Resolvendo o problema da busca errada(casa)
+Existe um método simples para resolver o problema para recuperação de uma chave específica.
+Vamos discutir
